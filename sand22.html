@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sand Transit Application - Preview</title>
+  <style>
+    :root {
+      --blue: #2f6fed;
+      --header-blue: #3b74e8;
+      --text: #2b2b2b;
+      --label: #1f1f1f;
+      --line: #e7e7e7;
+      --card-border: #e3e3e3;
+      --header-bg: #f7f8fa;
+      --banner-blank: #e9ecef;
+      /* blank colour shown until a photo is added */
+      --banner-blank-height: 2.5in;
+      /* height of the blank strip ONLY (before a photo is set) */
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      background: #ffffff;
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ---- Full-width photo banners (top & bottom) ---- */
+    .banner {
+      width: 100%;
+      background-color: var(--banner-blank);
+      line-height: 0;
+      /* removes tiny gap under the image */
+      overflow: hidden;
+    }
+
+    .banner img {
+      display: block;
+      width: 100%;
+      /* fills full width */
+      height: auto;
+      /* height follows the photo's own ratio -> no crop, no overflow */
+    }
+
+    .banner.blank {
+      /* only while no photo is set */
+      height: var(--banner-blank-height);
+    }
+
+    /* ---- Centered middle content ---- */
+    .middle {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 22px 24px 44px;
+    }
+
+    .top-bar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 14px;
+    }
+
+    .back-btn {
+      border: 1px solid #9db8f5;
+      color: #3b74e8;
+      background: #fff;
+      padding: 8px 20px;
+      border-radius: 6px;
+      font-size: 14px;
+      letter-spacing: .5px;
+      cursor: pointer;
+    }
+
+    .card {
+      border: 1px solid var(--card-border);
+      border-radius: 6px;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, .06);
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: var(--header-bg);
+      border-bottom: 1px solid var(--line);
+      padding: 16px 28px;
+      color: var(--header-blue);
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+
+    .card-body {
+      padding: 8px 28px 28px;
+    }
+
+    .section-title {
+      color: var(--blue);
+      font-size: 22px;
+      font-weight: 600;
+      margin: 26px 0 18px;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--line);
+      margin: 24px 0 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 190px minmax(0, 1fr) 190px minmax(0, 1fr);
+      row-gap: 20px;
+      column-gap: 12px;
+      align-items: start;
+    }
+
+    .label {
+      font-weight: 700;
+      color: var(--label);
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .value {
+      font-size: 16px;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .full {
+      grid-column: 2 / 5;
+    }
+
+    .amount {
+      font-weight: 700;
+      font-size: 17px;
+    }
+
+    @media (max-width:760px) {
+      .middle {
+        padding: 16px 14px 24px;
+      }
+
+      .card-body {
+        padding: 8px 16px 20px;
+      }
+
+      .grid {
+        grid-template-columns: 150px minmax(0, 1fr);
+      }
+
+      .full {
+        grid-column: 2 / 3;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================= -->
+  <!--  EDIT THESE LINES                                             -->
+  <!--   - Put your photo file names in topImage / bottomImage       -->
+  <!--     (keep the photos in the SAME folder as this file)         -->
+  <!--   - Change name, dates, amount as needed                      -->
+  <!-- ============================================================= -->
+  <script>
+    const data = {
+      topImage: "top2.png",      // <-- your TOP photo file name
+      bottomImage: "bottom2.png",   // <-- your BOTTOM photo file name
+
+      customerName: "CH MAHESH",
+      tokenIssued: "02/07/2026 03:18 PM",
+      tokenValidity: "03/07/2026 02:00 AM",
+      paymentAmount: "3874.8"
+    };
+  </script>
+  <!-- Or set from the web link: ?top=LINK&bottom=LINK&name=NAME&amount=4500 -->
+
+
+  <!-- TOP photo banner -->
+  <div class="banner blank" id="topBanner"><img id="topImg" alt=""></div>
+
+  <!-- MIDDLE centered content -->
+  <div class="middle">
+
+    <div class="top-bar">
+      <button class="back-btn" onclick="history.back()">BACK</button>
+    </div>
+
+    <div class="card">
+      <div class="card-header">SAND TRANSIT APPLICATION - PREVIEW</div>
+      <div class="card-body">
+
+        <div class="section-title">Customer Details</div>
+        <div class="grid">
+          <div class="label">Customer Name</div>
+          <div class="value full" id="customerName"></div>
+        </div>
+        <hr class="divider">
+
+        <div class="section-title">Driver Details</div>
+        <div class="grid">
+          <div class="label">Driver Name</div>
+          <div class="value"></div>
+          <div class="label">Licence Number</div>
+          <div class="value"></div>
+          <div class="label">Tractor &amp; Trolley No</div>
+          <div class="value"></div>
+        </div>
+        <hr class="divider">
+
+        <div class="section-title">Delivery Address</div>
+        <div class="grid">
+          <div class="label">District</div>
+          <div class="value">Rajanna Sircilla</div>
+          <div class="label">Mandal</div>
+          <div class="value">Sirsilla</div>
+          <div class="label">Village</div>
+          <div class="value">Sircilla-WARD-7</div>
+          <div></div>
+          <div></div>
+          <div class="label">Address</div>
+          <div class="value full">AMBIKA NAGAR NAGAR,SIRCILLA , NEYR ABIKA NAGAR , 505301</div>
+        </div>
+        <hr class="divider">
+
+        <div class="section-title">Sand Details</div>
+        <div class="grid">
+          <div class="label">District</div>
+          <div class="value">Rajanna Sircilla</div>
+          <div class="label">Mandal</div>
+          <div class="value">Sirsilla</div>
+          <div class="label">Village</div>
+          <div class="value">Sircilla-Ward-23</div>
+          <div class="label">Sand Reach</div>
+          <div class="value">SAINAGAR SAND REACH</div>
+          <div class="label">Usage Type</div>
+          <div class="value">Household</div>
+          <div></div>
+          <div></div>
+          <div class="label">Booked Quantity</div>
+          <div class="value">15 cu.mtrs</div>
+          <div class="label">Approved Quantity</div>
+          <div class="value">15 cu.mtrs</div>
+          <div class="label">Available Quantity</div>
+          <div class="value">15 cu.mtrs</div>
+          <div class="label">Status</div>
+          <div class="value">Allocated Not Used</div>
+          <div class="label">Token Issued Date</div>
+          <div class="value" id="tokenIssued"></div>
+          <div class="label">Token Validity Date</div>
+          <div class="value" id="tokenValidity"></div>
+        </div>
+        <hr class="divider">
+
+        <div class="section-title">Payment Details</div>
+        <div class="grid">
+          <div class="label">Payment Amount</div>
+          <div class="value amount full">&#8377; <span id="paymentAmount"></span></div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM photo banner -->
+  <div class="banner blank" id="bottomBanner"><img id="bottomImg" alt=""></div>
+
+  <script>
+    const q = new URLSearchParams(window.location.search);
+    if (q.get("top")) data.topImage = q.get("top");
+    if (q.get("bottom")) data.bottomImage = q.get("bottom");
+    if (q.get("name")) data.customerName = q.get("name");
+    if (q.get("issued")) data.tokenIssued = q.get("issued");
+    if (q.get("validity")) data.tokenValidity = q.get("validity");
+    if (q.get("amount")) data.paymentAmount = q.get("amount");
+
+    // Show a photo full-width with its own ratio (no crop, no overflow).
+    function setPhoto(bannerId, imgId, src) {
+      const banner = document.getElementById(bannerId);
+      const img = document.getElementById(imgId);
+      if (src) {
+        img.src = src;
+        img.onload = () => banner.classList.remove("blank"); // ratio drives height
+        img.onerror = () => { img.removeAttribute("src"); banner.classList.add("blank"); };
+      } else {
+        img.style.display = "none"; // keep the blank colour strip
+      }
+    }
+    setPhoto("topBanner", "topImg", data.topImage);
+    setPhoto("bottomBanner", "bottomImg", data.bottomImage);
+
+    document.getElementById("customerName").textContent = data.customerName;
+    document.getElementById("tokenIssued").textContent = data.tokenIssued;
+    document.getElementById("tokenValidity").textContent = data.tokenValidity;
+    document.getElementById("paymentAmount").textContent = data.paymentAmount;
+  </script>
+
+</body>
+
+</html>
